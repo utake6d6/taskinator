@@ -5,6 +5,17 @@ var taskFormHandler = function(event) {
   event.preventDefault();
   var taskNameInput = document.querySelector("input[name='task-name']").value;
   var taskTypeInput = document.querySelector("select[name='task-type']").value;
+  
+  // holds the code that creates a new task HTML element
+  var createTaskEl = function(taskDataObj) {
+
+    // check if input values are empty strings
+  if (!taskNameInput || !taskTypeInput) {
+    alert("You need to fill out the task form!");
+    return false;
+  }
+
+  formEl.reset();
 
   // package up data as an object
   var taskDataObj = {
@@ -14,9 +25,6 @@ var taskFormHandler = function(event) {
 
   // send it as an argument to createTaskEl
   createTaskEl(taskDataObj);
-  
-  // holds the code that creates a new task HTML element
-  var createTaskEl = function(taskDataObj) {
 
     // create list item
   var listItemEl = document.createElement("li");
@@ -41,7 +49,7 @@ var taskFormHandler = function(event) {
   formEl.addEventListener("submit", taskFormHandler); {
   var listItemEl = document.createElement("li");
   listItemEl.className = "task-item";
-  listItemEl.textContent = "This is a new task.";
+  listItemEl.textContent = taskNameInput;
   tasksToDoEl.appendChild(listItemEl);
 };
 
