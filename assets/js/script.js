@@ -175,10 +175,18 @@ var taskFormHandler = function(event) {
     
   } 
 
+  var dragLeaveHandler = function(event) {
+    var taskListEl = event.target.closest(".task-list");
+    if (taskListEl) {
+    taskListEl.removeAttribute("style");
+    }
+  }
+
   var dropZoneDragHandler = function(event) {
     var taskListEl = event.target.closest(".task-list");
     if (taskListEl) {
       event.preventDefault();
+      taskListEl.setAttribute("style", "background: rgba(68, 233, 255, 0.7); border-style: dashed;");
     }
   };
 
@@ -199,6 +207,9 @@ var taskFormHandler = function(event) {
       statusSelectEl.selectedIndex = 2;
     }
 
+    // resets highlighted boxes once task is dropped
+    dropZoneEl.removeAttribute("style");
+
     dropZoneEl.appendChild(draggableElement);
   };
 
@@ -213,6 +224,9 @@ var taskFormHandler = function(event) {
   pageContentEl.addEventListener("dragover", dropZoneDragHandler);
   // 
   pageContentEl.addEventListener("drop", dropTaskHandler);
+  // for all 3 task lists
+  pageContentEl.addEventListener("dragleave", dragLeaveHandler);
+
 
 
 
