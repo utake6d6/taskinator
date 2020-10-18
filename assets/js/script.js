@@ -34,8 +34,6 @@ var tasks = [];
     }
 
     createTaskEl(taskDataObj);
-    console.log(taskDataObj);
-    console.log(taskDataObj.status);
     }
   };
   
@@ -60,6 +58,9 @@ var tasks = [];
     taskDataObj.id = taskIdCounter;
 
     tasks.push(taskDataObj);
+
+    // save tasks to localStorage
+    saveTasks();
 
     tasksToDoEl.appendChild(listItemEl);
 
@@ -175,7 +176,6 @@ var tasks = [];
     }
 
     saveTasks();
-  
   };
 
   var editTask = function(taskId) {
@@ -207,6 +207,8 @@ var tasks = [];
 
     // reassign tasks array to be the same as updatedTaskArr
     tasks = updatedTaskArr;
+
+    saveTasks();
   };
 
   // defines the dragTaskHandler EventListener
@@ -255,11 +257,17 @@ var tasks = [];
       }
     }
 
+    // saveTasks
+    saveTasks();
+
     // resets highlighted boxes once task is dropped
     dropZoneEl.removeAttribute("style");
     dropZoneEl.appendChild(draggableElement);
   };
 
+  var saveTasks = function() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }
 
   // for edit and delete buttons
   pageContentEl.addEventListener("click", taskButtonHandler);
